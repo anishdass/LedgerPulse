@@ -17,7 +17,7 @@ import java.util.UUID;
 @Getter
 public class BankAccount {
     @Id
-    private final UUID id = UUID.randomUUID();
+    private final String accountNumber = "ACC-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
     @NotBlank(message = "Account holder name cannot be empty")
     private String accountHolderName;
