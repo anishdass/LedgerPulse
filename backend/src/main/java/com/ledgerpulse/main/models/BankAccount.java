@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class BankAccount {
 
     @NotNull(message = "Balance cannot be null")
     @DecimalMin(value = "0.0", message = "Balance cannot be negative initially")
+    @Setter
     private BigDecimal balance = BigDecimal.ZERO;
 
     @NotNull(message = "Currency code cannot be blank")
