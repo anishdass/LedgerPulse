@@ -14,7 +14,9 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BankAccountServiceTest {
@@ -26,14 +28,15 @@ public class BankAccountServiceTest {
 
     @Test
     void shouldCreateBankAccount() {
-//       Given
-        BankAccount account = new BankAccount("John Doe", new java.math.BigDecimal("1000.00"), CurrencyCode.USD);
+        BankAccount account = new BankAccount("John Doe", new BigDecimal("1000.00"), CurrencyCode.USD);
         when(bankAccountRepository.save(any(BankAccount.class))).thenReturn(account);
 
-//        When
-        BankAccount createdAccount = bankAccountService.createBankAccount("John Doe", new java.math.BigDecimal("1000.00"), CurrencyCode.USD);
+        BankAccount createdAccount = bankAccountService.createBankAccount(
+                "John Doe",
+                new BigDecimal("1000.00"),
+                CurrencyCode.USD
+        );
 
-//        Then
         assertThat(createdAccount).isNotNull();
         assertThat(createdAccount.getBalance()).isEqualByComparingTo(new BigDecimal("1000.00"));
         verify(bankAccountRepository, times(1)).save(any(BankAccount.class));
